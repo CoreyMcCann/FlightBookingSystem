@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/choose-seats.css">
+    <title>Choose Seats</title>
+    
+</head>
+
+<body>
+    <div class="container mt-5">
+        <!-- Title -->
+        <h1 class="text-center mb-4">Choose your seats!</h1>
+
+        <!-- Legend -->
+        <div class="mb-4 text-center">
+            <div class="d-inline-block seat available"></div> Available
+            <div class="d-inline-block seat taken ml-3"></div> Taken
+            <div class="d-inline-block seat selected ml-3"></div> Selected
+        </div>
+
+        <!-- Seat Map -->
+        <div id="seatMap" class="d-flex flex-column align-items-center">
+            <% for (let i=0; i < seats.length; i +=4) { %>
+                <div class="d-flex justify-content-center mb-2">
+                    <% for (let j=i; j < i + 4 && j < seats.length; j++) { %>
+                        <button class="seat <%= seats[j].status ? 'available' : 'taken' %>" <%=seats[j].status ? '' : 'disabled'
+                            %>
+                            data-seat="<%= seats[j].seat %>">
+                                <%= seats[j].seat %>
+                        </button>
+                        <% } %>
+                </div>
+                <% } %>
+        </div>
+
+
+        <!-- Confirm Button -->
+        <div class="text-center mt-4">
+            <form action="/booking-summary/<%= flight.id %>" method="POST">
+                <input type="hidden" name="selectedSeats" id="selectedSeats" value="">
+                <button type="submit" id="confirmButton" class="btn btn-primary btn-lg">Confirm</button>
+            </form>
+        </div>
+
+    </div>
+    
+    <!-- links to external scripts -->
+    <script src="/scripts/choose-seats.js"></script>
+
+    <!-- Optional JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+</body>
+
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Book Flight</title>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <!-- Page Title -->
+        <h1 class="text-center mb-4">Book Flight</h1>
+
+        <!-- One Way / Return Trip Selection -->
+        <div class="d-flex justify-content-center mb-4">
+            <div class="btn-group" role="group" aria-label="Trip type selection">
+                <button type="button" class="btn btn-outline-primary active">One Way</button>
+                <button type="button" class="btn btn-outline-primary">Return Trip</button>
+            </div>
+        </div>
+
+        <!-- Search Card -->
+        <div class="card mx-auto" style="max-width: 600px;">
+            <div class="card-body">
+                <form action="/search-results" method="GET">
+                    <!-- To Field -->
+                    <div class="form-group">
+                        <label for="to">To</label>
+                        <input type="text" class="form-control" id="to" name="to" placeholder="Enter destination"
+                            required>
+                    </div>
+
+                    <!-- From Field -->
+                    <div class="form-group">
+                        <label for="from">From</label>
+                        <input type="text" class="form-control" id="from" name="from"
+                            placeholder="Enter departure location" required>
+                    </div>
+
+                    <!-- Departure and Return Fields -->
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="departure">Departure</label>
+                            <input type="date" class="form-control" id="departure" name="departure" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="return">Return</label>
+                            <input type="date" class="form-control" id="return" name="return" disabled>
+                        </div>
+                    </div>
+
+                    <!-- Passengers Field -->
+                    <div class="form-group">
+                        <label for="passengers">Passengers</label>
+                        <input type="number" class="form-control" id="passengers" name="passengers" min="1" value="1"
+                            required>
+                    </div>
+
+                    <!-- Search Button -->
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary btn-lg">Search</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- links to external scripts -->
+    <script src="/scripts/booking.js"></script>
+    <script src="/scripts/search.js"></script>
+
+    <!-- Optional JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+       
+</body>
+
+</html>

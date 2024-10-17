@@ -1,0 +1,2 @@
+/* all logic inside service modules will be replaced to use Mongoose
+models instead of mock data */

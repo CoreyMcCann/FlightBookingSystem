@@ -1,0 +1,25 @@
+.seat {
+    width: 50px;
+    height: 50px;
+    margin: 5px;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 50px;
+    font-weight: bold;
+}
+
+.available {
+    background-color: lightgreen;
+    border: 2px solid green;
+}
+
+.taken {
+    background-color: lightcoral;
+    border: 2px solid darkred;
+    cursor: not-allowed;
+}
+
+.selected {
+    background-color: lightskyblue;
+    border: 2px solid blue;
+}
