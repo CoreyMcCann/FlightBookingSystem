@@ -1,3 +1,4 @@
+// Import required modules
 const express = require("express");
 const app = express();
 const path = require("path");
@@ -5,20 +6,28 @@ const ejsMate = require("ejs-mate");
 const dynamicFlights = require("./data/flights"); // Import flight data
 const flightSeats = require("./data/seats"); // Import seats data
 
+// Set up EJS as the templating engine
 app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
+
+// Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, "public")));
+
+// Parse URL-encoded data sent in POST requests
 app.use(express.urlencoded({ extended: true }));
 
+// Home route - render the home page
 app.get("/", (req, res) => {
     res.render("home");
 });
 
+// Search route - render the search page
 app.get("/search", (req, res) => {
     res.render("search");
 });
 
+// Search results route - display flights based on search criteria
 app.get("/search-results", (req, res) => {
     const { from, to, departure } = req.query;
 
@@ -35,7 +44,7 @@ app.get("/search-results", (req, res) => {
     res.render("search-results", { flights: filteredFlights });
 });
 
-// Flight details route
+// Flight details route - render details for a specific flight
 app.get("/flight-details/:id", (req, res) => {
     const flightId = req.params.id;
     const flight = dynamicFlights.find(flight => flight.id === flightId);
@@ -47,7 +56,7 @@ app.get("/flight-details/:id", (req, res) => {
     }
 });
 
-// Choose seats route
+// Choose seats route - render seat selection page for a specific flight
 app.get("/choose-seats/:id", (req, res) => {
     const flightId = req.params.id;
     const flight = dynamicFlights.find(flight => flight.id === flightId);
@@ -60,7 +69,7 @@ app.get("/choose-seats/:id", (req, res) => {
     }
 });
 
-// Booking summary route with seat update
+// Booking summary route - update seat status and render booking summary
 app.post("/booking-summary/:id", (req, res) => {
     const flightId = req.params.id;
     const flight = dynamicFlights.find(flight => flight.id === flightId);
@@ -82,7 +91,8 @@ app.post("/booking-summary/:id", (req, res) => {
     }
 });
 
-
+// Start the server on port 3000
 app.listen(3000, () => {
     console.log("Serving on port 3000");
 });
+

@@ -22,7 +22,7 @@ let dynamicFlights = [];
 dynamicFlights.push({
     id: 'FL100',
     origin: origins[2], // Dallas
-    destination: destinations[1], // Miami
+    destination: destinations[1], // London
     airline: 'Air Express',
     departureTime: '2024-11-15T08:00:00', // Specific date and time for testing
     price: '300.00'

@@ -1,2 +1,2 @@
-/* this will be all mock data that will be move to a data base once we can 
-implement the backend */
+/* This will only be used if we decide to create a dashboard that allows you to
+edit a logged in users bookings */

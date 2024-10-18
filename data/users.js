@@ -1,2 +1,2 @@
-/* this will be all mock data that will be move to a data base once we can 
-implement the backend */
+/* This will only be used if we decide to create a registration and login feature
+This will just be mock date for user accounts */
