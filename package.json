@@ -4,7 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "verbose": true,
+    "testMatch": [
+      "**/tests/**/*.test.js",
+      "**/*.test.js"
+    ]
   },
   "keywords": [],
   "author": "",
@@ -14,5 +22,9 @@
     "ejs-mate": "^4.0.0",
     "express": "^4.21.1",
     "mongoose": "^8.7.1"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0"
   }
 }
