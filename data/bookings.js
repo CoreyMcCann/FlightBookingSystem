@@ -1,2 +1,0 @@
-/* This will only be used if we decide to create a dashboard that allows you to
-edit a logged in users bookings */

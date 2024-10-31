@@ -1,10 +1,21 @@
 // Import required modules
 const express = require("express");
 const app = express();
+
 const path = require("path");
 const ejsMate = require("ejs-mate");
-const dynamicFlights = require("./data/flights"); // Import flight data
-const flightSeats = require("./data/seats"); // Import seats data
+
+const mongoose = require("mongoose");
+const Flight = require("./models/Flight");
+const Seat = require("./models/Seat");
+
+mongoose.connect('mongodb://127.0.0.1:27017/FlightBookingSystem');
+
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error:"));
+db.once("open", () => {
+    console.log("Database connected");
+});
 
 // Set up EJS as the templating engine
 app.engine("ejs", ejsMate);
@@ -28,71 +39,92 @@ app.get("/search", (req, res) => {
 });
 
 // Search results route - display flights based on search criteria
-app.get("/search-results", (req, res) => {
+app.get("/search-results", async (req, res) => {
     const { from, to, departure } = req.query;
 
-    // Filter flights that match the search criteria
-    const filteredFlights = dynamicFlights.filter(flight => {
-        return (
-            flight.origin.name.toLowerCase() === from.toLowerCase() &&
-            flight.destination.name.toLowerCase() === to.toLowerCase() &&
-            flight.departureTime.split('T')[0] === departure // Only compare the date part
-        );
-    });
+    try {
+        // Find flights that match the search criteria in the database
+        const filteredFlights = await Flight.find({
+            "origin.name": new RegExp(`^${from}$`, "i"),
+            "destination.name": new RegExp(`^${to}$`, "i"),
+            departureTime: { $gte: new Date(departure), $lt: new Date(new Date(departure).setDate(new Date(departure).getDate() + 1)) }
+        });
 
-    // Render search-results.ejs with filtered flights
-    res.render("search-results", { flights: filteredFlights });
+        // Render search-results.ejs with filtered flights
+        res.render("search-results", { flights: filteredFlights });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Internal Server Error");
+    }
 });
 
 // Flight details route - render details for a specific flight
-app.get("/flight-details/:id", (req, res) => {
-    const flightId = req.params.id;
-    const flight = dynamicFlights.find(flight => flight.id === flightId);
-
-    if (flight) {
-        res.render("flight-details", { flight });
-    } else {
-        res.status(404).send("Flight not found");
+app.get("/flight-details/:id", async (req, res) => {
+    try {
+        const flight = await Flight.findOne({ id: req.params.id }); 
+        if (flight) {
+            res.render("flight-details", { flight });
+        } else {
+            res.status(404).send("Flight not found");
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Internal Server Error");
     }
 });
+
 
 // Choose seats route - render seat selection page for a specific flight
-app.get("/choose-seats/:id", (req, res) => {
-    const flightId = req.params.id;
-    const flight = dynamicFlights.find(flight => flight.id === flightId);
-    const seats = flightSeats[flightId];
+app.get("/choose-seats/:id", async (req, res) => {
+    try {
+        const flight = await Flight.findOne({ id: req.params.id }); // Use custom string 'id' field
+        const seatData = await Seat.findOne({ flightId: req.params.id });
 
-    if (flight && seats) {
-        res.render("choose-seats", { flight, seats });
-    } else {
-        res.status(404).send("Flight or seats not found");
+        if (flight && seatData) {
+            res.render("choose-seats", { flight, seats: seatData.seats });
+        } else {
+            res.status(404).send("Flight or seats not found");
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Internal Server Error");
     }
 });
+
 
 // Booking summary route - update seat status and render booking summary
-app.post("/booking-summary/:id", (req, res) => {
+app.post("/booking-summary/:id", async (req, res) => {
     const flightId = req.params.id;
-    const flight = dynamicFlights.find(flight => flight.id === flightId);
     const selectedSeats = req.body.selectedSeats.split(","); // Retrieve selected seats from the form
 
-    if (flight) {
-        // Update seat status in flightSeats
-        selectedSeats.forEach(seatNumber => {
-            const seatIndex = flightSeats[flightId].findIndex(seat => seat.seat === seatNumber);
-            if (seatIndex !== -1) {
-                flightSeats[flightId][seatIndex].status = false; // Mark seat as taken
-            }
-        });
+    try {
+        const flight = await Flight.findOne({ id: flightId });
+        const seatData = await Seat.findOne({ flightId });
 
-        // Render booking summary page with updated seats
-        res.render("booking-summary", { flight, selectedSeats });
-    } else {
-        res.status(404).send("Flight not found");
+        if (flight && seatData) {
+            // Update seat status
+            selectedSeats.forEach(seatNumber => {
+                const seatIndex = seatData.seats.findIndex(seat => seat.seat === seatNumber);
+                if (seatIndex !== -1) {
+                    seatData.seats[seatIndex].status = false; // Mark seat as taken
+                }
+            });
+
+            await seatData.save();
+
+            // Render booking summary page with updated seats and flight details
+            res.render("booking-summary", { flight, selectedSeats });
+        } else {
+            res.status(404).send("Flight or seat information not found");
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Internal Server Error");
     }
 });
+
 
 // Start the server on port 3000
 app.listen(3000, () => {
     console.log("Serving on port 3000");
 });
-

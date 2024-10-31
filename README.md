@@ -2,18 +2,19 @@
 
 ## Getting Started with FlightBookingSystem
 
-Welcome to the FlightBookingSystem project! Follow these steps to set up the project on your local machine. 
+Welcome to the FlightBookingSystem project! Follow these steps to set up the project on your local machine. These instructions are designed for beginners, so don't worry if you're new to JavaScript, HTML, or CSS.
 
 ### Prerequisites
 Before you begin, make sure you have the following installed on your machine:
 
 1. **Node.js**: Node.js is required to run our server. You can download it here: [Node.js Download](https://nodejs.org/).
 2. **Git**: Git is needed to clone the project from GitHub. You can download it here: [Git Download](https://git-scm.com/).
+3. **MongoDB**: You will need to install MongoDB on your local machine to use as the database server. You can download MongoDB from the [official MongoDB website](https://www.mongodb.com/try/download/community) and follow the installation instructions.
 
 ### Step-by-Step Setup Instructions
 
 #### 1. Clone the Project from GitHub
-First, you need to get a copy of the project on your local machine. Open a terminal (or Command Prompt on Windows), navigate to a directory where you want the project to be, and run the following command:
+First, you need to get a copy of the project on your local machine. Open a terminal (or Command Prompt on Windows) and run the following command:
 
 ```bash
 git clone https://github.com/CoreyMcCann/FlightBookingSystem.git
@@ -25,7 +26,7 @@ This will create a folder called `FlightBookingSystem` with all the project file
 Change into the project directory by running the following command:
 
 ```bash
-cd InsertChosenPathHere
+cd FlightBookingSystem
 ```
 
 #### 3. Install Project Dependencies
@@ -37,11 +38,24 @@ npm install
 
 This will install all the libraries and tools required to run the project (listed in the `package.json` file).
 
-#### 4. Start the Server
+#### 4. Install and Setup MongoDB
+Ensure you have MongoDB installed and running on your local machine. The project connects to a MongoDB instance running at `mongodb://127.0.0.1:27017/FlightBookingSystem`. You can modify the connection string in the code if you need to use a different setup.
+
+#### 5. Seed the Database
+We have included seed scripts to populate the database with initial data for flights and seats. Run the following commands to seed your local MongoDB instance:
+
+```bash
+node seeds/seedFlights.js
+node seeds/seedSeats.js
+```
+
+These commands will create random flights and seat maps, which are necessary for testing the application.
+
+#### 6. Start the Server
 To run the project, you need to start the server. Run the following command:
 
 ```bash
-node app.js 
+nodemon app.js (or alternatively, use node app.js if you don't have nodemon installed)
 ```
 
 If everything is set up correctly, you should see a message like:
@@ -50,7 +64,7 @@ If everything is set up correctly, you should see a message like:
 Serving on port 3000
 ```
 
-#### 5. Open the Application in Your Browser
+#### 7. Open the Application in Your Browser
 Once the server is running, open your browser and navigate to:
 
 ```
@@ -80,15 +94,16 @@ To simplify the current version of our project, the following modifications have
 ## Project Structure Overview
 - **views/**: Contains the HTML (EJS) templates for the different pages of the website.
 - **public/**: Contains CSS files and other static resources.
-- **data/**: Contains the flight and seat data used by the application.
+- **seeds/**: Contains seed scripts used to populate the MongoDB database with initial data.
 - **app.js**: The main server file that runs the backend logic.
 - **scripts/**: Contains JavaScript files that handle front-end logic (e.g., seat selection, form validation).
 
 ## Backend Information
-The backend functionality implemented is minimal and is limited to the necessary routing. All of the data is **dynamically created** and **not saved**, which means that most of the data changes each time you run the program. In the future, we plan to make this data persistent by using a database and replacing the current in-memory logic with database queries.
+The backend functionality has been updated to use **MongoDB** for persistent data storage. We now connect to a MongoDB instance running locally to store flight and seat data. Previously, the data was dynamically generated and not saved, which meant it was different every time the program ran. Now, data is persistent, allowing for a more realistic application experience. 
 
 ## Testing Search Functionality
-Since flight data is dynamically generated, we have included some guaranteed flights to facilitate testing:
+Since flight data is now persisted in MongoDB, we have included seed scripts to add some random flights. However to facilitate testing we have kept the same guaranteed 
+flights from assignment 2:
 - **Dallas to Miami** on **November 15th, 2024**.
 - **Two flights from Chicago to Paris** on **November 20th, 2024**.
 
@@ -97,7 +112,8 @@ These guaranteed flights are always available when performing a search, which al
 ## Testing Instructions
 We have also written test scripts for the system, including both success and failure cases. Instructions to run these tests can be found in the `readme-first` file inside the **Assignment-2** directory.
 
-Feel free to reach out if you have any questions or issues while setting up or testing the project. 
+Feel free to reach out if you have any questions or issues while setting up or testing the project.
+
 
 
 

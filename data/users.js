@@ -1,2 +1,0 @@
-/* This will only be used if we decide to create a registration and login feature
-This will just be mock date for user accounts */

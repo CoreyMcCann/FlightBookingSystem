@@ -11,7 +11,7 @@
 <body>
     <div class="container mt-5">
         <!-- Back Button -->
-        <a href="/search-results?from=<%= flight.origin.name %>&to=<%= flight.destination.name %>&departure=<%= flight.departureTime.split('T')[0] %>"
+        <a href="/search-results?from=<%= flight.origin.name %>&to=<%= flight.destination.name %>&departure=<%= flight.departureTime.toISOString().split('T')[0] %>"
             class="btn btn-secondary mb-3">&larr; Back</a>
 
         <!-- Title -->

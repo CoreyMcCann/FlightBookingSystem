@@ -1,0 +1,94 @@
+{
+    "airports": [
+        {
+            "iata_code": "JFK",
+            "municipality": "New York",
+            "name": "John F Kennedy International Airport",
+            "country": "United States"
+        },
+        {
+            "iata_code": "LAX",
+            "municipality": "Los Angeles",
+            "name": "Los Angeles International Airport",
+            "country": "United States"
+        },
+        {
+            "iata_code": "ORD",
+            "municipality": "Chicago",
+            "name": "O'Hare International Airport",
+            "country": "United States"
+        },
+        {
+            "iata_code": "LHR",
+            "municipality": "London",
+            "name": "Heathrow Airport",
+            "country": "United Kingdom"
+        },
+        {
+            "iata_code": "CDG",
+            "municipality": "Paris",
+            "name": "Charles de Gaulle Airport",
+            "country": "France"
+        },
+        {
+            "iata_code": "HND",
+            "municipality": "Tokyo",
+            "name": "Haneda Airport",
+            "country": "Japan"
+        },
+        {
+            "iata_code": "PEK",
+            "municipality": "Beijing",
+            "name": "Beijing Capital International Airport",
+            "country": "China"
+        },
+        {
+            "iata_code": "DXB",
+            "municipality": "Dubai",
+            "name": "Dubai International Airport",
+            "country": "United Arab Emirates"
+        },
+        {
+            "iata_code": "SIN",
+            "municipality": "Singapore",
+            "name": "Singapore Changi Airport",
+            "country": "Singapore"
+        },
+        {
+            "iata_code": "SYD",
+            "municipality": "Sydney",
+            "name": "Sydney Kingsford Smith Airport",
+            "country": "Australia"
+        },
+        {
+            "iata_code": "YYZ",
+            "municipality": "Toronto",
+            "name": "Toronto Pearson International Airport",
+            "country": "Canada"
+        },
+        {
+            "iata_code": "FRA",
+            "municipality": "Frankfurt",
+            "name": "Frankfurt Airport",
+            "country": "Germany"
+        },
+        {
+            "iata_code": "AMS",
+            "municipality": "Amsterdam",
+            "name": "Amsterdam Airport Schiphol",
+            "country": "Netherlands"
+        },
+        {
+            "iata_code": "BCN",
+            "municipality": "Barcelona",
+            "name": "Barcelona–El Prat Airport",
+            "country": "Spain"
+        },
+        {
+            "iata_code": "IST",
+            "municipality": "Istanbul",
+            "name": "Istanbul Airport",
+            "country": "Turkey"
+        }
+    ]
+}
