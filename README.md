@@ -1,8 +1,8 @@
-# FlightBookingSystem - Final Project Documentation
+# Flight Booking System 
 
-## Getting Started with FlightBookingSystem
+## Getting Started with Flight Booking System
 
-Welcome to the FlightBookingSystem project! Follow these steps to set up the project on your local machine. These instructions are designed for beginners, so don't worry if you're new to JavaScript, HTML, or CSS.
+Welcome to the FlightBookingSystem project! Follow these steps to set up the project on your local machine. 
 
 ### Prerequisites
 Before you begin, make sure you have the following installed on your machine:
@@ -26,7 +26,7 @@ This will create a folder called `FlightBookingSystem` with all the project file
 Change into the project directory by running the following command:
 
 ```bash
-cd FlightBookingSystem
+cd InsertChosenPathHere
 ```
 
 #### 3. Install Project Dependencies
@@ -55,7 +55,7 @@ These commands will create random flights and seat maps, which are necessary for
 To run the project, you need to start the server. Run the following command:
 
 ```bash
-nodemon app.js (or alternatively, use node app.js if you don't have nodemon installed)
+node app.js 
 ```
 
 If everything is set up correctly, you should see a message like:
@@ -71,7 +71,7 @@ Once the server is running, open your browser and navigate to:
 http://localhost:3000
 ```
 
-You should see the home page of the FlightBookingSystem.
+You should see the home page of the Group-43-CD.
 
 ### Common Issues and Troubleshooting
 - **Port in Use**: If you get an error that the port is already in use, you can change the port in the `app.js` file or stop whatever is using the port.
@@ -110,12 +110,9 @@ flights from assignment 2:
 These guaranteed flights are always available when performing a search, which allows for consistent testing of the search functionality.
 
 ## Testing Instructions
-We have also written test scripts for the system, including both success and failure cases. Instructions to run these tests can be found in the `readme-first` file inside the **Assignment-2** directory.
+For instructions on running the tests, refer to the bottom of [readme-first](./Assignment-3/readme-first.md).
 
-Feel free to reach out if you have any questions or issues while setting up or testing the project.
-
-
-
+Feel free to reach out if you have any questions or issues while setting up or testing the project. 
 
 
 
