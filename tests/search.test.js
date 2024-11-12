@@ -142,4 +142,21 @@ describe('Flight Search Functionality', () => {
             'Departure date cannot be in the past. Please select a valid date.'
         );
     });
+
+    test('displays "No flights found" when no flights match search criteria', () => {
+        document.getElementById('from').value = 'NYC';
+        document.getElementById('to').value = 'LAX';
+        document.getElementById('departure').value = '2024-12-27';  // No flight available on this date
+        
+        const searchButton = document.getElementById('searchButton');
+        const clickEvent = new MouseEvent('click', {
+            bubbles: true,
+            cancelable: true,
+        });
+        
+        searchButton.dispatchEvent(clickEvent);
+        
+        const resultsContainer = document.getElementById('searchResults');
+        expect(resultsContainer.innerHTML).toContain('No flights found');
+    });
 });

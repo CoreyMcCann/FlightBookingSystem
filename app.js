@@ -17,6 +17,10 @@ const mongoose = require("mongoose");
 const Flight = require("./models/Flight");
 const Seat = require("./models/Seat");
 
+// Added body parsing middleware for testing purposes
+app.use(express.json()); // for parsing application/json
+app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+
 // Connect to MongoDB using the local database URL
 mongoose.connect('mongodb://127.0.0.1:27017/FlightBookingSystem');
 
@@ -134,7 +138,10 @@ app.post("/booking-summary/:id", async (req, res) => {
     }
 });
 
-// Start the server on port 3000
-app.listen(3000, () => {
-    console.log("Serving on port 3000");
-});
+// For the app.test.js file to work with no open handles
+const server = app.listen(3000, () => {
+    console.log("Server running on port 3000");
+  });
+  
+  // Export both app and server for use in tests
+  module.exports = { app, server };
