@@ -16,11 +16,7 @@ There are no new dependencies to install.
 ```bash
 npx jest tests/<name of test file>
 ```
-If you want to remove any deprecation warnings, add:
-```bash
-NODE_NO_WARNINGS=1
-```
-at the start of the command, for example if you wanted to run the  ```flight-search.test.js``` file you would write:
+If you want to remove any deprecation warnings, add ```NODE_NO_WARNINGS=1``` at the start of the command, for example if you wanted to run the  ```flight-search.test.js``` file you would write:
 ```bash
 NODE_NO_WARNINGS=1 npx jest tests/flight-search.test.js
 ```
