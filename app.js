@@ -54,24 +54,52 @@ app.get("/search", (req, res) => {
 });
 
 // Search results route - display flights based on search criteria
-app.get("/search-results", async (req, res) => {
-    const { from, to, departure } = req.query;
-
+app.get('/search-results', async (req, res) => {
     try {
-        // Use case-insensitive regex for exact match of city names
-        // Add one day to departure date to include all flights on the selected date
+        const { from, to, departure } = req.query;
+
+        // Validate required parameters
+        if (!from || !to || !departure) {
+            return res.render("search-results", {
+                flights: [],
+                error: "All search fields are required"
+            });
+        }
+
+        const departureDate = new Date(departure);
+
+        // Check for invalid date
+        if (isNaN(departureDate.getTime())) {
+            return res.render("search-results", {
+                flights: [],
+                error: "Invalid departure date"
+            });
+        }
+
+        // Create date range for the entire day
+        const nextDay = new Date(departureDate);
+        nextDay.setDate(departureDate.getDate() + 1);
+
+        // Use regular expressions to match city names case-insensitively
         const filteredFlights = await Flight.find({
-            "origin.name": new RegExp(`^${from}$`, "i"),
-            "destination.name": new RegExp(`^${to}$`, "i"),
-            departureTime: { $gte: new Date(departure), $lt: new Date(new Date(departure).setDate(new Date(departure).getDate() + 1)) }
+            'origin.name': { $regex: new RegExp(`^${from}$`, 'i') },
+            'destination.name': { $regex: new RegExp(`^${to}$`, 'i') },
+            departureTime: {
+                $gte: departureDate,
+                $lt: nextDay,
+            },
         });
 
         res.render("search-results", { flights: filteredFlights });
     } catch (err) {
-        console.error(err);
-        res.status(500).send("Internal Server Error");
+        res.status(500).render("search-results", {
+            flights: [],
+            error: "An error occurred while searching for flights"
+        });
     }
+
 });
+
 
 // Flight details route - render details for a specific flight
 // Uses custom string 'id' field instead of MongoDB's _id
