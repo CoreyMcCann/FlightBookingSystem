@@ -25,4 +25,4 @@ NODE_NO_WARNINGS=1 npx jest tests/flight-search.test.js
 The test files are located in the `tests/` directory:
 - **`flight-search.test.js`**
 - **`seat-booking.test.js`**
-- **`flight-seat-integrity.js`**
+- **`flight-seat-integrity.test.js`**
